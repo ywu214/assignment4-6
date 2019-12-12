@@ -16,9 +16,7 @@ const dashboardRouter = require('./routes/dashboard');
 const usersRouter = require('./routes/users');
 const roomsRouter = require('./routes/rooms');
 const port = 4200;
-let dbUrl = `mongodb://${process.env.MONGO_HOST}/airbb`;
-
-dbUrl = 'mongodb+srv://cheart:cheart@cluster0-we76o.mongodb.net/test?retryWrites=true&w=majority';
+const dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/test?retryWrites=true&w=majority`;
 mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongodb connection error'));
@@ -48,8 +46,8 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     session({
-      secret: 'airbb***!!',
-      name: 'airbb',
+      secret: process.env.SESSION_SECRET,
+      name: process.env.SESSION_NAME,
       resave: true,
       saveUninitialized: true
     })
