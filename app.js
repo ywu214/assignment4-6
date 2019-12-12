@@ -48,8 +48,8 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     session({
-      secret: process.env.SESSION_SECRET,
-      name: process.env.SESSION_NAME,
+      secret: 'airbb***!!',
+      name: 'airbb',
       resave: true,
       saveUninitialized: true
     })
