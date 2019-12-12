@@ -1,0 +1,66 @@
+<div class="site-wrap">
+    <div class="site-section bg-white">
+        <div class="container">
+            <div class="row justify-content-right text-center mb-5">
+                <h2>Room List</h2>
+            </div>
+            <div class="row">
+                {{#each rooms}}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="post-entry-1 h-100">
+                            <a href="#">
+                                <img src="{{this.picture}}" alt="Image"
+                                     class="img-fluid">
+                            </a>
+                            <div class="post-entry-1-contents">
+                                <h2>
+                                    <span>
+                                        {{this.title}}
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span>
+                                        {{this.location}}
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span>
+                                        {{this.price}}
+                                    </span>
+                                </h2>
+                                <p>{{this.detail}}</p>
+                                {{#if ../user}}
+                                    <button roomId="{{this._id}}" class="btn btn-primary bookingBtn">Booking</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <span>empty rooms</span>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const error = '{{error}}';
+    if (error) {
+        showError(error);
+    }
+
+    $('.bookingBtn').on('click', function () {
+        var roomId = $(this).attr('roomId');
+        $.ajax({
+            url: '/rooms/booking',
+            method: 'POST',
+            data: {roomId},
+            success: function (data) {
+                showSuccess('Booking successful!')
+            },
+            error: function (data) {
+                if (data.responseJSON) {
+                    showError(data.responseJSON.error);
+                    return false;
+                }
+            }
+        });
+    });
+</script>

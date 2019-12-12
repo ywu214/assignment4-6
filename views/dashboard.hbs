@@ -1,0 +1,201 @@
+<div class="site-wrap">
+    <div class="site-section bg-white">
+        <div class="container">
+            <div class="row justify-content-right text-center mb-5">
+                {{#if isAdmin}}
+                    <button id="createRoomBtn" data-toggle="modal" data-target="#createRoomModal" class="btn btn-primary">
+                        Create Room
+                    </button>
+                {{else}}
+                    <h2>My Booking</h2>
+                {{/if}}
+            </div>
+            <div class="row">
+                {{#each rooms}}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="post-entry-1 h-100">
+                            <a href="#">
+                                <img src="{{this.picture}}" alt="Image"
+                                     class="img-fluid">
+                            </a>
+                            <div class="post-entry-1-contents">
+                                <h2>
+                                    <span>
+                                        {{this.title}}
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span>
+                                        {{this.location}}
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span>
+                                        {{this.price}}
+                                    </span>
+                                </h2>
+                                <p>{{this.detail}}</p>
+                                {{#if ../isAdmin}}
+                                    <button roomId="{{this._id}}" class="btn btn-primary modifyBtn">
+                                        Edit
+                                    </button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <span>empty bookings</span>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="createRoomModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 30px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createRoomModalLabel">Create Room</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input type="hidden" id="id">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input id="title" name="title" type="text" placeholder="Title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input id="price" name="price" type="text" placeholder="Price" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select id="location" name="location" class="form-control">
+                            <option value="" selected>Choose City</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Montreal">Montreal</option>
+                            <option value="Calgary">Calgary</option>
+                            <option value="Ottawa">Ottawa</option>
+                            <option value="Edmonton">Edmonton</option>
+                            <option value="Mississauga">Mississauga</option>
+                            <option value="North York">North York</option>
+                            <option value="Winnipeg">Winnipeg</option>
+                            <option value="Vancouver">Vancouver</option>
+                            <option value="Scarborough">Scarborough</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail">Detail</label>
+                        <textarea name="detail" id="detail" class="form-control">
+                            </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="picture">Picture</label>
+                        <input id="picture" type="file" name="file" class="dropzone"/>
+                    </div>
+                    <button id="submitBtn" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const error = '{{error}}';
+    if (error) {
+        showError(error);
+    }
+    $('#createRoomBtn').on('click', function () {
+        $('#id').val(undefined);
+        $('#picture').val(undefined);
+    });
+
+    $('.modifyBtn').on('click', function () {
+        const roomId = $(this).attr('roomId');
+        $.ajax({
+            url: '/rooms/get?id=' + roomId,
+            method: 'GET',
+            success: function (data) {
+                $('#id').val(data._id);
+                $('#title').val(data.title);
+                $('#price').val(data.price);
+                $('#detail').val(data.detail);
+                $('#location').val(data.location);
+                $('#picture').attr('value', data.picture);
+                $('#createRoomModal').modal('show');
+            },
+            error: function (data) {
+                if (data.responseJSON) {
+                    showError(data.responseJSON.error);
+                    return false;
+                }
+            }
+        });
+    });
+
+    $('#submitBtn').on('click', function () {
+        var title = $('#title').val();
+        var price = $('#price').val();
+        var detail = $('#detail').val();
+        var location = $('#location').val();
+        var picture = $('#picture').attr('value');
+        var id = $('#id').val();
+        if (!title) {
+            showError('title required');
+            return false;
+        }
+        if (!price) {
+            showError('price required');
+            return false;
+        }
+        if (!detail) {
+            showError('detail required');
+            return false;
+        }
+        if (!location) {
+            showError('location required');
+            return false;
+        }
+        if (!picture) {
+            showError('picture required');
+            return false;
+        }
+        var data = {
+            id,
+            title,
+            price,
+            detail,
+            location,
+            picture
+        };
+        var url = '/rooms/create';
+        if (id) {
+            url = '/rooms/update';
+        }
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: data,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (data) {
+                if (data.responseJSON) {
+                    showError(data.responseJSON.error);
+                    return false;
+                }
+            }
+        });
+    });
+
+    $("#picture").dropzone({
+        url: "/upload",
+        method: 'post',
+        success: function (data) {
+            var response = JSON.parse(data.xhr.response);
+            if (response) {
+                $('#picture').attr('value', response.url);
+            }
+        }
+    });
+</script>

@@ -1,0 +1,331 @@
+<header class="site-navbar site-navbar-target" role="banner">
+    <div class="container">
+        <div class="row align-items-center position-relative">
+            <div class="col-3 ">
+                <div class="site-logo">
+                    <a href="/">AirB&B</a>
+                </div>
+            </div>
+            <div class="col-9  text-right">
+                <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+                <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                        <li class="active">
+                            <a href="index.html" class="nav-link">Home</a>
+                        </li>
+                        <li>
+                            <a href="/rooms" class="nav-link">Rooms</a>
+                        </li>
+                        {{#if user}}
+                            <li>
+                                <a href="/dashboard" class="nav-link">{{user.firstName}} {{user.lastName}}</a>
+                            </li>
+
+                            <li>
+                                <a href="/logout" class="nav-link">Logout</a>
+                            </li>
+                        {{else}}
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#singupModal" class="nav-link">Sign up</a>
+                            </li>
+                            <li>
+                                <a href="/login" class="nav-link">Log in</a>
+                            </li>
+                        {{/if}}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="site-wrap" id="home-section">
+    <div class="ftco-blocks-cover-1">
+        <div class="ftco-cover-1 overlay" style="background-image: url('images/hero1.jpg')">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="feature-car-rent-box-1">
+                            <h3>Book unique places to stay and things to do</h3>
+                            <div>
+                                <div class="form-group">
+                                    <label for="location">Where</label>
+                                    <select id="location" class="form-control">
+                                        <option value="" selected>Choose City</option>
+                                        <option value="Toronto">Toronto</option>
+                                        <option value="Montreal">Montreal</option>
+                                        <option value="Calgary">Calgary</option>
+                                        <option value="Ottawa">Ottawa</option>
+                                        <option value="Edmonton">Edmonton</option>
+                                        <option value="Mississauga">Mississauga</option>
+                                        <option value="North York">North York</option>
+                                        <option value="Winnipeg">Winnipeg</option>
+                                        <option value="Vancouver">Vancouver</option>
+                                        <option value="Scarborough">Scarborough</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="startDate">CHECK IN</label>
+                                    <input id="startDate" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">CHECKOUT</label>
+                                    <input id="endDate" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="guests">GUESTS</label>
+                                    <input id="guests" class="form-control" type="number" value="1" placeholder="Guests" />
+                                </div>
+                                <button id="searchBtn" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section bg-white">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-7 text-center mb-5">
+                    <h2>One-of-a-kind activities hosted by locals</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p4.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+                            <h2><a href="#">Cooking</a></h2>
+                            <p>Make and eat meals with locals who treat you like family</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p5.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+
+                            <h2><a href="#">Animals</a></h2>
+                            <p>Magical encounters hosted by animals and their advocates</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p6.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+
+                            <h2><a href="#">Adventures</a></h2>
+                            <p>Hosted journeys to extraordinary places—all you have to do is show up</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="site-section bg-white">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-7 text-center mb-5">
+                    <h2>Explore New York City</h2>
+                    <p>Book experiences with locals to discover a new side of NYC</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p3.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+
+                            <h2><a href="#">A Taste of NYC</a></h2>
+                            <p>A city that is home to 3 million immigrants and over 25,000 restaurants can only be one thing—diversely delicious.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p2.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+
+                            <h2><a href="#">Secrets of Old New York</a></h2>
+                            <p>Beyond the trendy shops and bars, there is old-school NYC—filled with landmarks and totems that connect the modern city to the past.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="post-entry-1 h-100">
+                        <a href="#">
+                            <img src="/images/p1.jpg" alt="Image"
+                                 class="img-fluid">
+                        </a>
+                        <div class="post-entry-1-contents">
+
+                            <h2><a href="#">Classic NYC</a></h2>
+                            <p>The quintessential American city, NYC is hip-hop’s birthplace and the home of Broadway—explore the cultural capital with Airbnb.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="singupModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 30px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="singupModalLabel">Sign up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                        <div class="form-group">
+                            <input id="username" type="text" placeholder="Username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="email" type="email" placeholder="Email address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="firstName" type="text" placeholder="First name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="lastName" type="text" placeholder="Last name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" placeholder="Create a Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="repassword" type="password" placeholder="Input Again" class="form-control">
+                        </div>
+                        <button id="registBtn" class="btn btn-primary">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 30px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form>
+                        <div class="form-group">
+                            <input id="username" type="text" placeholder="Username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" placeholder="Password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#startDate').datepicker({
+    });
+    $('#endDate').datepicker({
+    });
+
+    $('#registBtn').on('click', function () {
+        regist();
+    });
+
+    $('#searchBtn').on('click', function () {
+        var location = $('#location').val();
+        window.location = '/rooms?location=' + location
+    });
+
+    function regist() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var repassword = $('#repassword').val();
+        var email = $('#email').val();
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        if (!firstName) {
+            showError('firstName required');
+            return false;
+        }
+        if (!lastName) {
+            showError('lastName required');
+            return false;
+        }
+        if (!email) {
+            showError('email required');
+            return false;
+        }
+        if (!username) {
+            showError('username required');
+            return false;
+        }
+        if (!password) {
+            showError('password required');
+            return false;
+        }
+        if (password.length < 6 || password.length > 12) {
+            showError('password should be 6-12 length');
+            return false;
+        }
+        if (repassword.length < 6 || repassword.length > 12) {
+            showError('password should be 6-12 length');
+            return false;
+        }
+        if (password !== repassword) {
+            showError('The passwords don\'t match');
+            return false;
+        }
+        var data = {
+            username,
+            password,
+            email,
+            firstName,
+            lastName
+        };
+        $.ajax({
+           url: '/users/create',
+           method: 'POST',
+           data: data,
+           success: function (data) {
+                window.location = '/login';
+           },
+           error: function (data) {
+               if (data.responseJSON) {
+                   showError(data.responseJSON.error);
+                   return false;
+               }
+           }
+        });
+    }
+</script>
