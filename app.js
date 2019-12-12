@@ -17,6 +17,7 @@ const usersRouter = require('./routes/users');
 const roomsRouter = require('./routes/rooms');
 const port = 4200;
 let dbUrl = `mongodb://${process.env.MONGO_HOST}/airbb`;
+
 dbUrl = 'mongodb+srv://cheart:cheart@cluster0-we76o.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
